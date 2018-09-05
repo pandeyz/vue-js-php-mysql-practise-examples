@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue JS - Practise</title>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function(){
+		new Vue({
+			el: '#app',
+			data: {
+				name: ''
+			}
+		});
+	});
+	</script>
+</head>
+<body>
+
+	<div id="app">
+		<!-- <input type="" name="" v-model="name"> -->
+		<select v-model="name">
+			<option value="">Select</option>
+			<option value="Php">Php</option>
+			<option value="Mysql">Mysql</option>
+			<option value="Html">Html</option>
+			<option value="CSS">CSS</option>
+		</select>
+		<p>{{name}}</p>
+	</div>
+
+</body>
+</html>

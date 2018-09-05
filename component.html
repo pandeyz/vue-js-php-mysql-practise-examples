@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue JS - Practise</title>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function(){
+		Vue.component('testcomponent',{
+		   	template : '<form><input type="text" /><input type="button" value="Save" /></form>'
+		});
+		var vm = new Vue({
+		   	el: '#frm_component'
+		});
+	});
+	</script>
+</head>
+<body>
+
+	<div id="app">
+		<div id = "frm_component">
+         	<testcomponent></testcomponent>
+      	</div>
+	</div>
+
+</body>
+</html>

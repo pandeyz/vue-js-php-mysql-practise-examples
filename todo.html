@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue JS - Practise</title>
+	<script src="https://unpkg.com/vue"></script>
+
+	<!-- For ajax purpose -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function(){
+		new Vue({
+			el: '#app',
+			data: {
+			   	name:'',
+			   	tasks:[]
+			},
+			methods :{
+			   	addTask : function() {
+			      	if( this.name != '' )	// Push the element to array if it is not blank
+			      	{
+			      		// this.tasks.push(this.name);
+			      		var name = this.name;
+
+				      	// Ajax call to save the list
+		      	      	axios.get('ajax/ajax.php',{
+		      	      	  	params:{
+		      	      	  		function: 'addTask',
+		      					task: this.name
+		      	      	  	}
+		      	      	})
+		      	      	.then(response => {
+      	      	      		this.tasks.push(name);
+      	                })
+		      	      	.catch(function(error){
+		      	      	   // Error handling
+		      	      	});
+
+		      	      	// Clear the textbox
+		      	      	this.name = '';
+			      	}
+			   	},
+			   	removeTask: function(element) {
+			   		var elemIndex = this.tasks.indexOf(element);
+			   		this.tasks.splice(elemIndex, 1);
+
+			   		// Ajax call to delete the list
+	      	      	axios.get('ajax/ajax.php',{
+	      	      	  	params:{
+	      	      	  		function: 'removeTask',
+	      					task: element
+	      	      	  	}
+	      	      	})
+	      	      	.then(response => {
+  	      	      		this.tasks.splice(elemIndex, 1);
+  	                })
+	      	      	.catch(function(error){
+	      	      	   // Error handling
+	      	      	});
+			   	}
+			},
+			created: function(){
+		   		// Ajax call to delete the list
+      	      	axios.get('ajax/ajax.php',{
+      	      	  	params:{
+      	      	  		function: 'getTasks'
+      	      	  	}
+      	      	}).then(response => {
+      	      		for( i=0; i<response.data.length; i++ )
+      	      	   	{
+                        this.tasks.push(response.data[i].task);
+                    }
+                }).catch(function(error){
+      	      	   // Error handling
+      	      	});
+			}
+		});
+	});
+	</script>
+
+	<style type="text/css">
+	ul {
+		list-style: none;
+		padding: 0;
+	}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<input type="text" name="name" v-model="name" autocomplete="off" autofocus>
+		<button type="button" v-on:click="addTask" >Add</button>
+		<ul>
+			<li v-for="(a, index) in tasks">{{index+1}}. {{a}} <span><a v-on:click="removeTask(a)" href="javascript:void(0);">x</a></span></li>
+		</ul>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue JS - Practise</title>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function(){
+		Vue.component('testcomponent',{
+		   	template : '<div v-on:mouseover = "changename()" v-on:mouseout = "originalname();"><h1>Custom Component created by <span id = "name">{{name}}</span></h1></div>',
+		   	data: function() {
+		      	return {
+		         	name : "ABC"
+		      	}
+		   	},
+		   	methods:{
+		      	changename : function() {
+		        	this.name = "Ben";
+		      	},
+		      	originalname: function() {
+		        	this.name = "ABC";
+		      	}
+		   	}
+		});
+		var vm = new Vue({
+		   	el: '#component_test'
+		});
+		var vm1 = new Vue({
+		   	el: '#component_test1'
+		});
+	});
+	</script>
+</head>
+<body>
+
+	<div id="app">
+		<div id = "component_test">
+        	<testcomponent></testcomponent>
+      	</div>
+      	<div id = "component_test1">
+         	<testcomponent></testcomponent>
+      	</div>
+	</div>
+
+</body>
+</html>
